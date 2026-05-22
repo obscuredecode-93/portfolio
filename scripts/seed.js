@@ -46,7 +46,7 @@ const SEED_DATA = [
       'Full stack roguelike game with React UI, Phaser.js engine, special attacks, screen shake and damage numbers.',
     techStack: ['React', 'Phaser.js', 'Node.js', 'MongoDB', 'Express'],
     githubUrl: 'https://github.com/obscuredecode-93',
-    liveUrl:   'https://bullzully.onrender.com',
+    liveUrl:   'https://bullzully.vercel.app/',
     displayOrder: 1,
     active: true,
   },
@@ -83,8 +83,8 @@ async function seed() {
   for (const data of SEED_DATA) {
     const result = await Project.findOneAndUpdate(
       { name: data.name },   // match by name — idempotent
-      { $setOnInsert: data },
-      { upsert: true, new: true }
+      { $set: data },
+      { upsert: true, returnDocument: 'after' }
     );
     seeded++;
     console.log(`  ✓  ${data.name}`);
